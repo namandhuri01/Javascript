@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wireframe Layout</title>
+    <style>
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto;
+            gap: 10px;
+            border: solid 2px black;
+            /* Representing the border of the wireframe */
+            padding: 10px;
+        }
+
+        .header {
+            grid-column: span 2;
+            /* Spanning full width */
+            text-align: center;
+            padding: 20px;
+            border-bottom: solid 2px black;
+            /* Border as per wireframe design */
+        }
+
+        .profile {
+            text-align: center;
+            padding: 10px;
+            height:100%;
+            border-right: solid 2px black;
+            /* Border as per wireframe design */
+        }
+
+
+        .footer {
+            border-top: solid 2px black;
+            grid-column: span 2;
+            /* Spanning full width */
+            text-align: center;
+            padding: 20px;
+            margin-top: 10px;
+            /* Space between this and profile elements as per wireframe design */
+        }
+        .footer ul li {
+            margin-left:115px;
+            font-size:18px;
+            font-weight: bold;
+            line-height: 30px;
+            display:inline-flex;
+        }
+        ul li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">Higher Tips Calculator</div>
+        <div class="profile">
+            <h1>John and Family</h1>
+            <p>Bill's</p>
+            <ul>
+                <li>$124</li>
+                <li>$48</li>
+                <li>$268</li>
+                <li>$180</li>
+                <li>$42</li>
+            </ul>
+        
+        </div>
+        <div class="profile"><h1>Mark and Family</h1>
+            <p>Bill's</p>
+            <ul>
+                <li>$77</li>
+                <li>$375</li>
+                <li>$110</li>
+                <li>$45</li>
+            </ul>
+        </div>
+        
+        <div class="footer">Tips calculator explain
+            <ul>
+                <li> Bill less than 50 then 0.20%</li>
+                <li> Bill less than 200 then 0.15%</li>
+                <li> Bill grater than 200 then 0.10%</li>
+            </ul>
+        </div>
+        <div class="footer">
+           <h4>Result</h4>
+           <h2 class="result"></h2>
+        </div>
+    </div>
+
+
+
+
+    <script>
+        const john = {
+            firstName: "John",
+            bills: [124, 48, 268, 180, 42],
+            tips: [],
+            finalAmount: [],
+            calcTips: function () {
+                for (let i = 0; i < this.bills.length; i++) {
+
+                    if (this.bills[i] < 50) {
+
+                        this.tips[i] = this.bills[i] * .2;
+                        this.finalAmount[i] = this.tips[i] + this.bills[i];
+
+                    }
+                    else if (this.bills[i] <= 200) {
+                        this.tips[i] = this.bills[i] * .15;
+                        this.finalAmount[i] = this.tips[i] + this.bills[i];
+                    }
+                    else {
+
+                        this.tips[i] = this.bills[i] * .1;
+                        this.finalAmount[i] = this.tips[i] + this.bills[i];
+                    }
+                }
+
+            }
+        };
+        john.calcTips();
+
+        const mark = {
+            firstName: "Mark",
+            bills: [77, 375, 110, 45],
+            tips: [],
+            finalAmount: [],
+            calcTips: function () {
+                for (let i = 0; i < this.bills.length; i++) {
+
+                    if (this.bills[i] < 50) {
+
+                        this.tips[i] = this.bills[i] * .2;
+                        this.finalAmount[i] = this.tips[i] + this.bills[i];
+
+                    }
+                    else if (this.bills[i] > 50 && this.bills[i] <= 200) {
+                        this.tips[i] = this.bills[i] * .15;
+                        this.finalAmount[i] = this.tips[i] + this.bills[i];
+                    }
+                    else {
+
+                        this.tips[i] = this.bills[i] * .1;
+                        this.finalAmount[i] = this.tips[i] + this.bills[i];
+                    }
+                }
+
+            }
+        };
+        mark.calcTips();
+
+        function avgAllTips(tips) {
+            let avg;
+            let sum = 0;
+            for (i = sum; i < tips.length; i++) {
+
+                sum = sum + tips[i];
+            }
+            avg = sum / tips.length;
+            return avg;
+        }
+        john.tipsAvg = avgAllTips(john.tips);
+        mark.tipsAvg = avgAllTips(mark.tips);
+
+        const result = document.querySelector('.result');
+        if (mark.tipsAvg > john.tipsAvg) {
+            result.textContent = 'Mark & family paid higher tips then john & family';
+        }
+        else {
+            result.textContent = 'john & family paid higher tips then mark & family ';
+        }
+
+    </script>
+
+</body>
+
+</html>
